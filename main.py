@@ -9,11 +9,24 @@ from decouple import config
 # диспестчер это перехватчик смс
 # types
 
-TOKEN=config('TOKEN')
+TOKEN = config('TOKEN')
 
 bot = Bot(TOKEN)
 db = Dispatcher(bot=bot)
 
-if __name__=='__main__':
+
+@db.message_handler(commands=['start', 'hello'])
+async def start_handler(massege: types.Message):
+    await bot.send_message(massege.from_user.id, f'еще раз напишешь {massege.from_user.first_name} уебу')
+    await massege.answer('ты блять не понял')
+    await massege.reply(massege.from_user.first_name)
+
+
+@db.message_handler()
+async def echo(massege: types.Message):
+    await bot.send_message(massege.from_user.id, massege.text)
+    await massege.answer('отъебись')
+
+if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     executor.start_polling(db, skip_updates=True)
