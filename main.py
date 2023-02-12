@@ -17,9 +17,9 @@ db = Dispatcher(bot=bot)
 
 @db.message_handler(commands=['start', 'hello'])
 async def start_handler(massege: types.Message):
-    await bot.send_message(massege.from_user.id, f'еще раз напишешь {massege.from_user.first_name} уебу')
-    await massege.answer('ты блять не понял')
-    await massege.reply(massege.from_user.first_name)
+    await bot.send_message(massege.from_user.id, f'здравствуй {massege.from_user.first_name}')
+    await massege.answer(f'нахуй иди {massege.from_user.first_name}')
+    # await massege.reply(massege.from_user.first_name)
 
 
 @db.message_handler()
